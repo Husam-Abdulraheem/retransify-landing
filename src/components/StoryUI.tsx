@@ -95,7 +95,8 @@ function AppleNode({
             objectFit: 'cover', 
             WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%)',
             maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%)',
-            opacity: 0.7
+            opacity: 0.7,
+            pointerEvents: 'none'
           }} 
         />
       </div>
