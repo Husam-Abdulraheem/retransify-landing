@@ -1,34 +1,34 @@
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { useRef } from 'react';
 import StoryUI from './components/StoryUI';
-import Scene from './components/Scene';
 import { useStoryAnimation } from './hooks/useStoryAnimation';
 
 function App() {
-  // Initialize the GSAP scroll animations
-  useStoryAnimation();
+  const masterRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
+
+  // Initialize the GSAP scroll animations for Infinite Canvas
+  useStoryAnimation(masterRef, canvasRef);
 
   return (
     <div className="bg-[#030303]">
-      {/* Massive Scroll Container (12000px height for long scroll experience) */}
-      <div id="scroll-container" className="h-[12000px] w-full relative">
-        
-        {/* Sticky viewport */}
-        <div className="sticky top-0 w-full h-screen overflow-hidden bg-[#030303]">
-          
-          {/* 3D Canvas Background */}
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            <Canvas camera={{ position: [0, 5, 15], fov: 60 }}>
-              <Suspense fallback={null}>
-                <Scene />
-              </Suspense>
-            </Canvas>
-          </div>
-
-          {/* HTML UI Layer */}
+      <div 
+        id="master-container" 
+        ref={masterRef}
+        className="w-screen h-screen overflow-hidden relative bg-[#030303]"
+      >
+        <div 
+          id="diagram-canvas" 
+          ref={canvasRef}
+          className="absolute top-0 left-0"
+          style={{ 
+            width: '5000px', 
+            height: '5000px',
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.05) 2px, transparent 2px)',
+            backgroundSize: '50px 50px'
+          }}
+        >
           <StoryUI />
         </div>
-        
       </div>
     </div>
   );
