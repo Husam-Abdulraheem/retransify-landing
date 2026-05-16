@@ -1,67 +1,652 @@
-@import "tailwindcss";
+/* ═══════════════════════════════════════════════════════════════════════
+   RETRANSIFY — Design System (Pure CSS)
+   ═══════════════════════════════════════════════════════════════════════ */
 
-@layer base {
-  body {
-    @apply bg-[#030303] text-white m-0 p-0 overflow-x-hidden;
-    font-family: 'Inter', sans-serif;
-    overscroll-behavior-y: none;
-  }
+/* ── 1. Design Tokens ────────────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --c-bg:         #060610;
+  --c-surface:    rgba(10, 10, 28, 0.88);
+  --c-border:     rgba(255, 255, 255, 0.07);
+  --c-border-md:  rgba(255, 255, 255, 0.12);
+  --c-text:       #e2e8f0;
+  --c-muted:      rgba(255, 255, 255, 0.38);
+  --c-dimmed:     rgba(255, 255, 255, 0.18);
+
+  /* Brand palette */
+  --indigo:  #6366f1;
+  --cyan:    #22d3ee;
+  --emerald: #10b981;
+  --blue:    #3b82f6;
+  --rose:    #f43f5e;
+  --amber:   #f59e0b;
+  --purple:  #a855f7;
+
+  /* Transparency variants */
+  --indigo-10:  rgba(99,  102, 241, 0.10);
+  --indigo-20:  rgba(99,  102, 241, 0.20);
+  --cyan-10:    rgba(34,  211, 238, 0.10);
+  --cyan-20:    rgba(34,  211, 238, 0.20);
+  --emerald-10: rgba(16,  185, 129, 0.10);
+  --emerald-20: rgba(16,  185, 129, 0.20);
+  --blue-10:    rgba(59,  130, 246, 0.10);
+  --blue-20:    rgba(59,  130, 246, 0.20);
+  --rose-10:    rgba(244,  63,  94, 0.10);
+  --rose-20:    rgba(244,  63,  94, 0.20);
+  --amber-10:   rgba(245, 158,  11, 0.10);
+  --amber-20:   rgba(245, 158,  11, 0.20);
+  --purple-10:  rgba(168,  85, 247, 0.10);
+  --purple-20:  rgba(168,  85, 247, 0.20);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-code: 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@layer utilities {
-  .code-font {
-    font-family: 'Fira Code', monospace;
-  }
-  
-  .glass-card {
-    @apply bg-black/80 backdrop-blur-md border border-zinc-800 rounded-2xl shadow-2xl p-6 text-center;
-  }
+/* ── 2. Reset & Base ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .glow-blue { box-shadow: 0 0 40px rgba(59,130,246,0.3); }
-  .glow-emerald { box-shadow: 0 0 40px rgba(16,185,129,0.3); }
-  .glow-cyan { box-shadow: 0 0 40px rgba(6,182,212,0.3); }
-  .glow-rose { box-shadow: 0 0 40px rgba(244,63,94,0.3); }
-  .glow-amber { box-shadow: 0 0 40px rgba(245,158,11,0.3); }
-  .glow-purple { box-shadow: 0 0 40px rgba(168,85,247,0.3); }
+html { scroll-behavior: smooth; }
 
-  .sdlc-badge {
-    @apply text-[0.65rem] tracking-widest px-2 py-1 rounded uppercase font-extrabold mb-4 inline-block;
-    font-family: 'Fira Code', monospace;
-  }
+body {
+  font-family: var(--font-sans);
+  background: var(--c-bg);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 4px; }
+/* ── 3. Figma Dotted Canvas ──────────────────────────────────────────── */
+#diagram-canvas {
+  background-color: var(--c-bg);
+  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.22) 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+  position: absolute;
+  top: 0; left: 0;
+  width: 6000px;
+  height: 7200px;
+}
 
-/* Custom Animations */
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-.animate-blink { animation: blink 1s step-end infinite; }
+/* ── 4. Node Unique Shapes ───────────────────────────────────────────── */
+
+/* A. The HUD Scanner (Analyze Node) */
+.shape-hud {
+  position: relative;
+  padding: 32px;
+  background: rgba(10, 10, 28, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid transparent;
+}
+/* HUD Corners */
+.shape-hud::before, .shape-hud::after {
+  content: ''; position: absolute; width: 30px; height: 30px; border: 2px solid var(--cyan);
+  pointer-events: none; opacity: 0.8;
+}
+.shape-hud::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+.shape-hud::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+.shape-hud .hud-corner-tr { position: absolute; top: 0; right: 0; width: 30px; height: 30px; border: 2px solid var(--cyan); border-left: none; border-bottom: none; opacity: 0.8;}
+.shape-hud .hud-corner-bl { position: absolute; bottom: 0; left: 0; width: 30px; height: 30px; border: 2px solid var(--cyan); border-right: none; border-top: none; opacity: 0.8;}
+
+/* B. The Blueprint (Planner Node) */
+.shape-blueprint {
+  background-color: rgba(34, 211, 238, 0.03);
+  background-image: 
+    linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 2px dashed rgba(34, 211, 238, 0.4);
+  border-radius: var(--r-md);
+  padding: 32px;
+  position: relative;
+  box-shadow: inset 0 0 40px rgba(34, 211, 238, 0.05);
+}
+
+/* C. The Loop Ring (Loop Node) */
+.shape-pipeline {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0) 100%);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  border-top: 4px solid var(--emerald);
+  box-shadow: 0 -10px 40px rgba(16, 185, 129, 0.15);
+  position: relative;
+}
+.shape-pipeline::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 42px; width: 2px;
+  background: linear-gradient(180deg, var(--emerald) 0%, transparent 100%);
+  opacity: 0.3;
+}
+
+/* D. The Mobile Phone (Reporter Node) */
+.shape-mobile {
+  width: 320px;
+  height: 600px;
+  background: var(--c-surface);
+  border-radius: 40px;
+  border: 8px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 24px 64px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(0,0,0,1);
+  padding: 24px 16px;
+  position: relative;
+  backdrop-filter: blur(24px);
+  overflow: hidden;
+}
+/* Phone Notch */
+.shape-mobile::before {
+  content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 100px; height: 24px; background: rgba(0,0,0,0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* E. Hexagon Stats (Metrics Node) */
+.roi-hex {
+  width: 100%;
+  aspect-ratio: 1;
+  background: rgba(168, 85, 247, 0.05);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgba(168, 85, 247, 0.3); /* Chrome might not support borders on clip-path, we use internal div */
+  position: relative;
+}
+.roi-hex-inner {
+  position: absolute; inset: 2px;
+  background: rgba(10, 10, 28, 0.9);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 10px;
+}
+
+/* ── 5. Node Wrapper ─────────────────────────────────────────────────── */
+.node-wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+}
+
+/* ── 6. Connector Dot ────────────────────────────────────────────────── */
+.connector-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  position: relative;
+  /* color + box-shadow set via inline style */
+}
+.connector-dot::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0.35;
+  animation: ping-slow 2.2s ease-out infinite;
+}
+.connector-dot--indigo  { background: var(--indigo);  color: var(--indigo);  box-shadow: 0 0 16px var(--indigo); }
+.connector-dot--cyan    { background: var(--cyan);    color: var(--cyan);    box-shadow: 0 0 16px var(--cyan);   }
+.connector-dot--emerald { background: var(--emerald); color: var(--emerald); box-shadow: 0 0 16px var(--emerald);}
+.connector-dot--blue    { background: var(--blue);    color: var(--blue);    box-shadow: 0 0 16px var(--blue);   }
+.connector-dot--rose    { background: var(--rose);    color: var(--rose);    box-shadow: 0 0 16px var(--rose);   }
+.connector-dot--amber   { background: var(--amber);   color: var(--amber);   box-shadow: 0 0 16px var(--amber);  }
+.connector-dot--purple  { background: var(--purple);  color: var(--purple);  box-shadow: 0 0 16px var(--purple); }
+
+/* ── 7. Step Pill ────────────────────────────────────────────────────── */
+.step-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-family: var(--font-code);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.step-pill__num {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700;
+  border: 1px solid currentColor;
+  opacity: 0.6;
+}
+
+/* Color variants */
+.pill--indigo  { color: var(--indigo);  }
+.pill--cyan    { color: var(--cyan);    }
+.pill--emerald { color: var(--emerald); }
+.pill--blue    { color: var(--blue);    }
+.pill--rose    { color: var(--rose);    }
+.pill--amber   { color: var(--amber);   }
+.pill--purple  { color: var(--purple);  }
+
+/* ── 8. Card Typography ──────────────────────────────────────────────── */
+.env-card {
+  width: 500px;
+  background: rgba(10, 10, 28, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid var(--accent, rgba(255,255,255,0.1));
+}
+
+.env-card__image-container {
+  width: 100%;
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.env-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.env-card:hover .env-card__image {
+  transform: scale(1.05);
+}
+
+.env-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(10, 10, 28, 0.2) 60%, rgba(10, 10, 28, 0.95) 100%);
+  pointer-events: none;
+}
+
+.env-card__content {
+  padding: 0 24px 24px 24px;
+  position: relative;
+  z-index: 2;
+  margin-top: -20px;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.visual-tag {
+  font-family: var(--font-code);
+  font-size: 11px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.card-title--lg { font-size: 24px; font-weight: 900; }
+.card-subtitle {
+  font-size: 12px;
+  color: var(--c-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* ── 9. Code Block ───────────────────────────────────────────────────── */
+.code-block {
+  font-family: var(--font-code);
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--r-md);
+  padding: 14px;
+  line-height: 1.7;
+  color: #94a3b8;
+}
+.code-block__header {
+  padding: 8px 14px;
+  font-size: 10px;
+  color: var(--c-dimmed);
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r-md) var(--r-md) 0 0;
+}
+.code-block--with-header {
+  padding: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.code-block__body { padding: 14px; }
+
+/* ── 10. Tag / Badge ─────────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-family: var(--font-code);
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid;
+  font-weight: 500;
+}
+.tag--indigo  { color: var(--indigo);  background: var(--indigo-10);  border-color: var(--indigo-20);  }
+.tag--cyan    { color: var(--cyan);    background: var(--cyan-10);    border-color: var(--cyan-20);    }
+.tag--emerald { color: var(--emerald); background: var(--emerald-10); border-color: var(--emerald-20); }
+.tag--blue    { color: var(--blue);    background: var(--blue-10);    border-color: var(--blue-20);    }
+.tag--rose    { color: var(--rose);    background: var(--rose-10);    border-color: var(--rose-20);    }
+.tag--amber   { color: var(--amber);   background: var(--amber-10);   border-color: var(--amber-20);   }
+.tag--purple  { color: var(--purple);  background: var(--purple-10);  border-color: var(--purple-20);  }
+
+/* ── 11. Data Row ────────────────────────────────────────────────────── */
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-code);
+  font-size: 11px;
+}
+.data-row__label { color: var(--c-muted); }
+.data-row__value { font-weight: 600; }
+
+/* ── 12. Terminal Window ─────────────────────────────────────────────── */
+.terminal {
+  width: 100%;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+}
+.terminal__chrome {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.terminal__dot { width: 12px; height: 12px; border-radius: 50%; }
+.terminal__title {
+  margin: 0 auto;
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: rgba(255,255,255,0.18);
+}
+.terminal__body {
+  padding: 28px;
+  background: rgba(0, 0, 0, 0.6);
+  font-family: var(--font-code);
+  font-size: 13px;
+  line-height: 2;
+  color: #94a3b8;
+}
+.terminal__prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── 13. Stat Grid ───────────────────────────────────────────────────── */
+.stat-grid {
+  display: grid;
+  gap: 10px;
+}
+.stat-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.stat-grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+.stat-box {
+  border-radius: var(--r-md);
+  padding: 14px;
+  text-align: center;
+  border: 1px solid;
+}
+.stat-box__val {
+  font-family: var(--font-code);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-box__label {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--c-dimmed);
+}
+
+.stat-box--indigo  { background: var(--indigo-10);  border-color: var(--indigo-20);  color: var(--indigo);  }
+.stat-box--cyan    { background: var(--cyan-10);    border-color: var(--cyan-20);    color: var(--cyan);    }
+.stat-box--emerald { background: var(--emerald-10); border-color: var(--emerald-20); color: var(--emerald); }
+
+/* ── 14. Progress bar ────────────────────────────────────────────────── */
+.progress-track {
+  height: 6px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.07);
+  overflow: hidden;
+  margin-top: 14px;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+}
+.progress-fill--emerald-cyan {
+  background: linear-gradient(90deg, var(--emerald), var(--cyan));
+}
+.progress-label {
+  margin-top: 6px;
+  font-family: var(--font-code);
+  font-size: 10px;
+  color: var(--c-dimmed);
+}
+
+/* ── 15. Diff Block ──────────────────────────────────────────────────── */
+.diff-block {
+  display: flex;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--font-code);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.diff-block__side {
+  width: 50%;
+  padding: 12px;
+}
+.diff-block__side--old {
+  background: rgba(244, 63, 94, 0.05);
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.diff-block__side--new { background: rgba(59, 130, 246, 0.05); }
+.diff-block__lang {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+.diff-old  { color: rgba(244, 63, 94, 0.55); text-decoration: line-through; }
+.diff-new  { color: #60a5fa; }
+.diff-muted{ color: #e2e8f0; }
+
+/* ── 16. Checklist ───────────────────────────────────────────────────── */
+.checklist-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-family: var(--font-code);
+  font-size: 11px;
+}
+.check-icon--done    { color: var(--emerald); }
+.check-icon--pending { color: var(--amber); }
+.check-label--done    { color: rgba(255,255,255,0.7); }
+.check-label--pending { color: var(--amber); }
+
+/* ── 17. ROI Grid ────────────────────────────────────────────────────── */
+.roi-card {
+  border-radius: var(--r-md);
+  padding: 16px;
+  border: 1px solid;
+}
+.roi-card__label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--c-dimmed); margin-bottom: 4px; }
+.roi-card__val { font-family: var(--font-code); font-size: 24px; font-weight: 900; line-height: 1; }
+.roi-card--dim     { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+.roi-card--dim .roi-card__val { color: rgba(255,255,255,0.3); text-decoration: line-through; }
+.roi-card--indigo  { background: var(--indigo-10);  border-color: var(--indigo-20);  }
+.roi-card--indigo  .roi-card__val { color: var(--indigo);  }
+.roi-card--emerald { background: var(--emerald-10); border-color: var(--emerald-20); }
+.roi-card--emerald .roi-card__val { color: var(--emerald); }
+.roi-card--cyan    { background: var(--cyan-10);    border-color: var(--cyan-20);    }
+.roi-card--cyan    .roi-card__val { color: var(--cyan);    }
+
+/* ── Dynamic color roi-card (inline-style driven) ─── */
+.roi-card { border-radius: var(--r-md); padding: 16px; border: 1px solid; }
+
+/* ── 18. Install Block ───────────────────────────────────────────────── */
+.install-block {
+  border-radius: var(--r-md);
+  padding: 16px;
+  text-align: center;
+  font-family: var(--font-code);
+  font-size: 14px;
+  background: var(--indigo-10);
+  border: 1px solid var(--indigo-20);
+  margin-top: 16px;
+}
+
+/* ── 19. SVG Paths ───────────────────────────────────────────────────── */
+.sdlc-path {
+  stroke-dasharray: 8000;
+  stroke-dashoffset: 8000;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* ── 20. Scroll hint HUD ─────────────────────────────────────────────── */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 50;
+}
+.scroll-hint__label {
+  font-family: var(--font-code);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(99, 102, 241, 0.45);
+}
+.scroll-hint__line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(99,102,241,0.45), transparent);
+}
+
+/* ── 21. Intro hero ──────────────────────────────────────────────────── */
+.hero-title {
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--indigo), var(--cyan), var(--emerald));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.hero-sub { font-size: 13px; color: var(--c-muted); }
+.hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  color: rgba(99,102,241,0.45);
+}
+.hero-scroll span {
+  font-family: var(--font-code);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, rgba(99,102,241,0.45), transparent);
+}
+
+/* ── 22. Animations ──────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.blink { animation: blink 1s step-end infinite; }
+
+@keyframes ping-slow {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
 
 @keyframes scan {
-  0% { top: 0; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
+  0%   { top: 0%;   opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
   100% { top: 100%; opacity: 0; }
 }
 .laser-line {
-  position: absolute; left: 0; width: 100%; height: 2px;
-  background: #10b981; box-shadow: 0 0 15px 5px rgba(16,185,129,0.5);
-  animation: scan 2s infinite linear; z-index: 10;
+  position: absolute;
+  left: 0; width: 100%; height: 2px;
+  background: var(--emerald);
+  box-shadow: 0 0 14px 4px rgba(16, 185, 129, 0.55);
+  animation: scan 2.5s linear infinite;
+  z-index: 10;
 }
 
 @keyframes glitch {
-  0% { transform: translate(0) }
-  20% { transform: translate(-2px, 2px) }
-  40% { transform: translate(-2px, -2px) }
-  60% { transform: translate(2px, 2px) }
-  80% { transform: translate(2px, -2px) }
-  100% { transform: translate(0) }
+  0%   { transform: translate(0); }
+  20%  { transform: translate(-2px,  2px); }
+  40%  { transform: translate(-2px, -2px); }
+  60%  { transform: translate( 2px,  2px); }
+  80%  { transform: translate( 2px, -2px); }
+  100% { transform: translate(0); }
 }
-.error-glitch { animation: glitch 0.3s infinite; color: #f43f5e; text-shadow: 0 0 5px #f43f5e; }
+.text-glitch {
+  animation: glitch 0.35s infinite;
+  color: var(--rose);
+  text-shadow: 0 0 8px var(--rose);
+}
 
-.healer-beam {
-  position: absolute; left: -100%; top: 0; width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(16,185,129,0.4), transparent);
-  z-index: 10;
-}
+/* ── 23. Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.45); border-radius: 4px; }

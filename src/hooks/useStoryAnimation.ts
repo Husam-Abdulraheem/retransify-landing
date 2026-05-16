@@ -1,76 +1,82 @@
 import { useEffect } from 'react';
+import React from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { nodesData } from '../constants/nodes';
+import { nodesData, NODE_SEQUENCE } from '../constants/nodes';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function useStoryAnimation(masterRef: React.RefObject<HTMLDivElement | null>, canvasRef: React.RefObject<HTMLDivElement | null>) {
+export function useStoryAnimation(
+  masterRef: React.RefObject<HTMLDivElement | null>,
+  canvasRef: React.RefObject<HTMLDivElement | null>
+) {
   useEffect(() => {
-    if (!masterRef.current || !canvasRef.current) return;
+    const master = masterRef.current;
+    const canvas = canvasRef.current;
+    if (!master || !canvas) return;
 
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
 
-    // Helper to get target canvas translation to center a node exactly
-    const getTarget = (nodeIndex: number) => {
-      const node = nodesData[nodeIndex];
-      return {
-        x: -node.x + w / 2,
-        y: -node.y + h / 2
-      };
-    };
+    const targetX = (i: number) => -nodesData[i].x + vw / 2;
+    const targetY = (i: number) => -nodesData[i].y + vh / 2;
 
-    // 1. Set initial position to center the first node
-    const initPos = getTarget(0);
-    gsap.set(canvasRef.current, { x: initPos.x, y: initPos.y });
+    // Center on intro node initially
+    gsap.set(canvas, { x: targetX(0), y: targetY(0) });
 
-    // 2. Build the main timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: masterRef.current,
-        start: "top top",
-        end: "+=10000",
-        scrub: 1, // Smooth scrubbing
-        pin: true, // Pinned master container
-      }
+    // All nodes except intro start hidden
+    NODE_SEQUENCE.forEach((nodeIndex) => {
+      if (nodeIndex === 0) return;
+      gsap.set(`#${nodesData[nodeIndex].id}`, { opacity: 0, scale: 0.88, y: 24 });
     });
 
-    // 3. Loop through nodes and build animations
-    for (let i = 0; i < nodesData.length - 1; i++) {
-      const nextTarget = getTarget(i + 1);
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: master,
+        start: 'top top',
+        end: '+=10000',
+        scrub: 1.2,
+        pin: true,
+      },
+    });
+
+    // Reading pause on intro
+    tl.to({}, { duration: 1.8 });
+
+    for (let i = 1; i < NODE_SEQUENCE.length; i++) {
+      const currentNodeIndex = NODE_SEQUENCE[i];
       const label = `step-${i}`;
-      
-      tl.addLabel(label);
 
-      // Move canvas to next node
-      tl.to(canvasRef.current, {
-        x: nextTarget.x,
-        y: nextTarget.y,
-        duration: 2,
-        ease: "power2.inOut"
+      // Pan canvas to next node
+      tl.to(canvas, {
+        x: targetX(currentNodeIndex),
+        y: targetY(currentNodeIndex),
+        duration: 2.4,
+        ease: 'power2.inOut',
+        onStart: () => {
+          gsap.to(`#path-${i - 1}`, {
+            strokeDashoffset: 0,
+            duration: 2.0,
+            ease: 'power1.inOut',
+          });
+        },
       }, label);
 
-      // Draw SVG connection line simultaneously
-      tl.to(`#path-${i}`, {
-        strokeDashoffset: 0,
-        duration: 2,
-        ease: "power2.inOut"
-      }, label);
-
-      // Fade in the next node halfway through the movement
-      tl.to(`#${nodesData[i + 1].id}`, {
+      // Reveal node card (if not already revealed, e.g. Verifier on second pass)
+      tl.to(`#${nodesData[currentNodeIndex].id}`, {
         opacity: 1,
         scale: 1,
-        duration: 1,
-        ease: "back.out(1.5)"
-      }, `${label}+=1`);
+        y: 0,
+        duration: 0.85,
+        ease: 'back.out(1.3)',
+      }, `${label}+=1.5`);
 
-      // Add empty tween for reading pause
-      tl.to({}, { duration: 1 });
+      // Reading pause
+      tl.to({}, { duration: 2 });
     }
 
     return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill());
       tl.kill();
     };
   }, []);
