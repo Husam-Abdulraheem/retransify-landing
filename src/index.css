@@ -17,7 +17,7 @@
   --indigo:  #6366f1;
   --cyan:    #22d3ee;
   --emerald: #10b981;
-  --blue:    #3b82f6;
+  --blue:    #005cff;
   --rose:    #f43f5e;
   --amber:   #f59e0b;
   --purple:  #a855f7;
@@ -29,8 +29,8 @@
   --cyan-20:    rgba(34,  211, 238, 0.20);
   --emerald-10: rgba(16,  185, 129, 0.10);
   --emerald-20: rgba(16,  185, 129, 0.20);
-  --blue-10:    rgba(59,  130, 246, 0.10);
-  --blue-20:    rgba(59,  130, 246, 0.20);
+  --blue-10:    rgba(0,   92,  255, 0.10);
+  --blue-20:    rgba(0,   92,  255, 0.20);
   --rose-10:    rgba(244,  63,  94, 0.10);
   --rose-20:    rgba(244,  63,  94, 0.20);
   --amber-10:   rgba(245, 158,  11, 0.10);
@@ -40,6 +40,7 @@
 
   /* Typography */
   --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Michroma', sans-serif;
   --font-code: 'Fira Code', 'Cascadia Code', monospace;
 
   /* Radii */
@@ -301,12 +302,19 @@ body {
 }
 
 .card-title {
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: 16px;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
 }
-.card-title--lg { font-size: 24px; font-weight: 900; }
+.card-title--lg {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
 .card-subtitle {
   font-size: 12px;
   color: var(--c-muted);
@@ -376,10 +384,14 @@ body {
   width: 100%;
   border-radius: var(--r-lg);
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.07);
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(10, 10, 28, 0.35);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 
+    0 24px 80px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 24px rgba(0, 92, 255, 0.15);
 }
 .terminal__chrome {
   display: flex;
@@ -575,14 +587,14 @@ body {
 
 /* ── 21. Intro hero ──────────────────────────────────────────────────── */
 .hero-title {
-  font-size: 40px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, var(--indigo), var(--cyan), var(--emerald));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--blue);
+  text-shadow: 0 0 24px rgba(0, 92, 255, 0.45);
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
 .hero-sub { font-size: 13px; color: var(--c-muted); }
 .hero-scroll {
@@ -650,3 +662,133 @@ body {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.45); border-radius: 4px; }
+
+/* ── 24. Site Header ─────────────────────────────────────────────────── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo-t {
+  height: 72px;
+  width: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s var(--ease-out);
+}
+
+.header-logo-t:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(34, 211, 238, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.github-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s var(--ease-out);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.github-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.github-button svg {
+  opacity: 0.9;
+}
+
+/* ── 25. Custom SplitIDE Keyframe Animations ───────────────────────────── */
+@keyframes shimmer-x {
+  0% { left: -60px; }
+  100% { left: 200px; }
+}
+
+@keyframes hud-pulse {
+  0% { transform: scale(0.85); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.85); opacity: 0.5; }
+}
+
+@keyframes laser-sweep {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes neon-green-flash {
+  0% { box-shadow: 0 0 0px rgba(16, 185, 129, 0); }
+  50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.1); }
+  100% { box-shadow: 0 0 0px rgba(16, 185, 129, 0); }
+}
+
+@keyframes radar-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ── 26. Futuristic Viewport Neon Framed Glow Overlay ──────────────────── */
+.viewport-neon-border {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border: 1.5px solid rgba(34, 211, 238, 0.25);
+  box-shadow: inset 0 0 30px rgba(0, 92, 255, 0.2), 0 0 10px rgba(34, 211, 238, 0.1);
+  will-change: opacity;
+  animation: viewport-pulse-opacity 5s infinite ease-in-out;
+}
+
+@keyframes viewport-pulse-opacity {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+/* ── 27. Permanent Agentic Loop Running Neon Animation ────────────────── */
+.neon-running-loop {
+  animation: neon-loop-flow 5s linear infinite;
+}
+
+@keyframes neon-loop-flow {
+  0% {
+    stroke-dashoffset: 300;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
