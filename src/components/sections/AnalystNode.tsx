@@ -10,7 +10,7 @@ export const AnalystNode: React.FC = () => {
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={1200}>
       <AppleNode
-        imgSrc="/assets/environments/env_analyst_1778949492442.png"
+        imgSrc="/assets/environments/env_analyst_1778949492442.jpg"
         role="node.analyst.role"
         title="node.analyst.title"
         tags={[

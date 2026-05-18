@@ -7,7 +7,7 @@ const Header: React.FC = () => {
   return (
     <header className="site-header">
       <div className="header-left">
-        <img src="/assets/logoT.png" alt="Retransify Name" className="header-logo-t" />
+        <img src="/assets/logoT.png" alt="Retransify Name" className="header-logo-t" decoding="async" />
       </div>
       
       <div className="header-right">

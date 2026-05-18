@@ -43,6 +43,8 @@ export const ConclusionNode: React.FC = () => {
           <img 
             src="/assets/logoT.png" 
             alt="retransify" 
+            loading="lazy"
+            decoding="async" 
             style={{ 
               height: '100px', 
               borderRadius: '20px',

@@ -102,7 +102,7 @@ export const IntroNode: React.FC = () => {
 
       <div style={{ textAlign: 'center', marginTop: 24, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Cinematic Main Tagline */}
-        <p className="hero-sub" style={{ 
+        <h1 className="hero-sub" style={{ 
           fontSize: 22, 
           fontWeight: 500, 
           color: 'rgba(255, 255, 255, 0.9)', 
@@ -112,7 +112,7 @@ export const IntroNode: React.FC = () => {
           letterSpacing: '-0.01em'
         }}>
           {t('node.intro.tagline')}
-        </p>
+        </h1>
 
         {/* Feature Conversion Pill */}
         <div style={{ 

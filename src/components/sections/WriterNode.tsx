@@ -10,7 +10,7 @@ export const WriterNode: React.FC = () => {
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={1200}>
       <AppleNode
-        imgSrc="/assets/environments/env_writer_1778949611170.png"
+        imgSrc="/assets/environments/env_writer_1778949611170.jpg"
         role="node.writer.role"
         title="node.writer.title"
         tags={[

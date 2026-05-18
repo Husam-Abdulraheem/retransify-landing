@@ -5,7 +5,7 @@ import { LanguageContext } from './LanguageContext';
 import type { Language } from '../constants/translations';
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('tr');
+  const [language, setLanguage] = useState<Language>('en');
 
   const t = (key: string): string => {
     const keys = key.split('.');

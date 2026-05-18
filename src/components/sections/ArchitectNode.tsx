@@ -9,7 +9,7 @@ export const ArchitectNode: React.FC = () => {
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={1200}>
       <AppleNode
-        imgSrc="/assets/environments/env_architect_1778949512202.png"
+        imgSrc="/assets/environments/env_architect_1778949512202.jpg"
         role="node.architect.role"
         title="node.architect.title"
         tags={[

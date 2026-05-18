@@ -13,7 +13,7 @@ export const CleanerNode: React.FC = () => {
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
-        imgSrc="/assets/environments/env_cleaner_1778949532438.png"
+        imgSrc="/assets/environments/env_cleaner_1778949532438.jpg"
         role="node.cleaner.role"
         title="node.cleaner.title"
         tags={[
@@ -32,7 +32,7 @@ export const TransformerNode: React.FC = () => {
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
-        imgSrc="/assets/environments/env_transformer_1778949551384.png"
+        imgSrc="/assets/environments/env_transformer_1778949551384.jpg"
         role="node.transformer.role"
         title="node.transformer.title"
         tags={[
@@ -52,7 +52,7 @@ export const VerifierNode: React.FC<{ isSecondPass?: boolean }> = ({ isSecondPas
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
-        imgSrc="/assets/environments/env_verifier_1778949570029.png"
+        imgSrc="/assets/environments/env_verifier_1778949570029.jpg"
         role="node.verifier.role"
         title="node.verifier.title"
         tags={[
@@ -72,7 +72,7 @@ export const HealerNode: React.FC = () => {
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
-        imgSrc="/assets/environments/env_healer_1778949591682.png"
+        imgSrc="/assets/environments/env_healer_1778949591682.jpg"
         role="node.healer.role"
         title="node.healer.title"
         tags={[

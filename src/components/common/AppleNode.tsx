@@ -44,6 +44,8 @@ export const AppleNode: React.FC<AppleNodeProps> = ({
         <img
           src={imgSrc}
           alt={title}
+          loading="lazy"
+          decoding="async"
           style={{
             width: '100%',
             height: '100%',
