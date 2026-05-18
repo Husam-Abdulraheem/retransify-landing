@@ -165,6 +165,7 @@ export const DOMAnalyzer: React.FC = () => {
 
   return (
     <div
+      className="scrolly-interactive-card"
       style={{
         width: '840px',
         height: '260px',

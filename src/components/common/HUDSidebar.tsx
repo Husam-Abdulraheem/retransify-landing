@@ -64,6 +64,7 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
     <div
       onMouseEnter={() => setIsSidebarHovered(true)}
       onMouseLeave={() => setIsSidebarHovered(false)}
+      className="hud-sidebar-container"
       style={{
         position: 'fixed',
         right: '24px',

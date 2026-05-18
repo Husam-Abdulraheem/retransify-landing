@@ -212,6 +212,7 @@ export const SplitIDE: React.FC = () => {
   return (
     <div
       ref={containerRef}
+      className="scrolly-interactive-card"
       style={{
         width: '840px',
         background: 'rgba(10, 10, 28, 0.45)',

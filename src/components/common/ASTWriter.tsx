@@ -104,6 +104,7 @@ export const ASTWriter: React.FC = () => {
   return (
     <div
       ref={containerRef}
+      className="scrolly-interactive-card"
       style={{
         width: '840px',
         height: '260px',
@@ -322,9 +323,9 @@ export const ASTWriter: React.FC = () => {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {logs.length > 0 ? (
-            logs.map((log) => (
+            logs.map((log, idx) => (
               <div
-                key={log.id}
+                key={`${log.id}-${idx}`}
                 style={{
                   fontFamily: 'var(--font-code)',
                   fontSize: '10.5px',

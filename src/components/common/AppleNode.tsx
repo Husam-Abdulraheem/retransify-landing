@@ -27,18 +27,7 @@ export const AppleNode: React.FC<AppleNodeProps> = ({
 }) => {
   const { t } = useLanguage();
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: 1200,
-        minHeight: 620,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '30px 0',
-      }}
-    >
+    <div className="apple-node-card">
       {/* 8K Atmospheric environmental background */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
         <img
@@ -59,41 +48,19 @@ export const AppleNode: React.FC<AppleNodeProps> = ({
       </div>
 
       {/* Cinematic typography layer */}
-      <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', marginTop: 30 }}>
+      <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', marginTop: 30, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Step subtitle */}
-        <div
-          style={{
-            fontSize: 13,
-            fontWeight: 700,
-            letterSpacing: '0.4em',
-            textTransform: 'uppercase',
-            color: 'rgba(255, 255, 255, 0.7)',
-            marginBottom: 12,
-            textShadow: '0 4px 24px rgba(0, 0, 0, 0.8)',
-          }}
-        >
+        <div className="apple-node-subtitle">
           {t(role)}
         </div>
 
         {/* Futuristic display title (Michroma) */}
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 38,
-            fontWeight: 700,
-            color: '#fff',
-            lineHeight: 1.2,
-            marginBottom: 20,
-            letterSpacing: '1px',
-            textTransform: 'uppercase',
-            textShadow: '0 12px 48px rgba(0, 0, 0, 0.8)',
-          }}
-        >
+        <h2 className="apple-node-title">
           {t(title)}
         </h2>
 
         {/* Dynamic code tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+        <div className="apple-node-tags">
           {tags.map((t) => (
             <span
               key={t.label}

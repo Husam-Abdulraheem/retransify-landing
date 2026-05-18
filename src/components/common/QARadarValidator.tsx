@@ -116,6 +116,7 @@ export const QARadarValidator: React.FC<QARadarValidatorProps> = ({ isSecondPass
   return (
     <div
       ref={containerRef}
+      className="scrolly-interactive-card"
       style={{
         width: '840px',
         height: '260px',

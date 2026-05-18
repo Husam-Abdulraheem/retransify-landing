@@ -27,7 +27,7 @@ export const IntroNode: React.FC = () => {
           <span className="terminal__title">{t('node.intro.bash')}</span>
         </div>
         <div className="terminal__body" style={{ padding: 32 }}>
-          <div className="terminal__prompt-line" style={{ fontSize: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+          <div className="terminal__prompt-line" style={{ fontSize: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', flexWrap: 'wrap', gap: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <span style={{ color: 'var(--blue)', marginRight: 16 }}>&gt;</span>
               <span style={{ color: '#fff', fontWeight: 600 }}>{cmd}</span>

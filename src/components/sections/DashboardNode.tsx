@@ -49,7 +49,7 @@ export const DashboardNode: React.FC = () => {
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <div 
         ref={containerRef}
-        className="glass-card glass-card--purple" 
+        className="glass-card glass-card--purple scrolly-interactive-card" 
         style={{ 
           padding: '24px 32px',
           width: '840px',
@@ -75,7 +75,7 @@ export const DashboardNode: React.FC = () => {
         </div>
 
         {/* Realistic Conversion Success Rate Cards Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', margin: '12px 0' }}>
+        <div className="dashboard-metrics-grid">
           
           {/* Card 1: Small Scale Apps */}
           <div

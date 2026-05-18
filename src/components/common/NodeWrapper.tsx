@@ -22,11 +22,13 @@ export const NodeWrapper: React.FC<NodeWrapperProps> = ({
   return (
     <div
       id={id}
+      className="story-node-wrapper"
       style={{
         position: 'absolute',
         left: x,
         top: y,
-        width,
+        width: '100%',
+        maxWidth: width,
         transform: 'translate(-50%, -50%) translateZ(0)',
         willChange: 'transform',
         zIndex: 10,

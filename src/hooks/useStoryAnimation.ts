@@ -18,7 +18,28 @@ export function useStoryAnimation(
     if (!master || !canvas) return;
 
     const targetX = (i: number) => -nodesData[i].x + window.innerWidth / 2;
-    const targetY = (i: number) => -nodesData[i].y + window.innerHeight / 2;
+    const targetY = (i: number) => {
+      const centerY = -nodesData[i].y + window.innerHeight / 2;
+      
+      // On mobile viewports (width <= 768px), shift the camera view upward
+      if (window.innerWidth <= 768) {
+        if (i === 4) {
+          // Section 5 (TransformerNode) is exceptionally tall due tostacked panels
+          return centerY - 160;
+        }
+        return centerY - 80;
+      } else {
+        // On desktop, shift Section 5 upward by 140px since the SplitIDE panel is taller
+        if (i === 4) {
+          return centerY - 140;
+        }
+        // Slightly shift other interactive sections upward by 40px to center them comfortably
+        if (i === 1 || i === 3 || i === 5 || i === 6 || i === 7 || i === 8 || i === 9) {
+          return centerY - 40;
+        }
+      }
+      return centerY;
+    };
 
     // Center on intro node initially
     gsap.set(canvas, { x: targetX(0), y: targetY(0) });
