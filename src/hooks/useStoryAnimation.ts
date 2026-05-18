@@ -25,6 +25,9 @@ export function useStoryAnimation(
 
     // Center on intro node initially
     gsap.set(canvas, { x: targetX(0), y: targetY(0) });
+    let activeIndex = 0;
+    let isAnimating = false;
+    let allowSnap = true;
 
     // All nodes except intro start hidden
     NODE_SEQUENCE.forEach((nodeIndex) => {
@@ -40,7 +43,7 @@ export function useStoryAnimation(
       snapPoints.push(restTime / totalDuration);
     }
 
-    // Register active scroll progress offsets for all 10 sequential steps
+    // Register active scroll progress offsets for all 11 sequential steps
     onRegisterSteps([
       { step: 1, progress: snapPoints[0] }, // Introduction (Intro)
       { step: 2, progress: snapPoints[1] }, // Lead Analyst (Analyst)
@@ -52,17 +55,30 @@ export function useStoryAnimation(
       { step: 8, progress: snapPoints[8] }, // Committer Writer (Writer)
       { step: 9, progress: snapPoints[9] }, // Release Manager (Documenter)
       { step: 10, progress: snapPoints[10] }, // Executive Boardroom (Dashboard)
+      { step: 11, progress: snapPoints[11] }, // Release & Thanks (Conclusion)
     ]);
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: master,
         start: 'top top',
-        end: '+=10000',
+        end: '+=11000', // Extend scroll height slightly to make step 11 transition feel spacious
         scrub: 1.8,
         pin: true,
         snap: {
-          snapTo: snapPoints,
+          snapTo: (value) => {
+            if (!allowSnap) return value;
+            let closest = snapPoints[0];
+            let minDiff = Infinity;
+            snapPoints.forEach((p) => {
+              const diff = Math.abs(p - value);
+              if (diff < minDiff) {
+                minDiff = diff;
+                closest = p;
+              }
+            });
+            return closest;
+          },
           duration: { min: 1.0, max: 1.8 },
           delay: 0.1,
           ease: 'power2.out',
@@ -80,8 +96,10 @@ export function useStoryAnimation(
               closestIndex = idx;
             }
           });
+          
+          activeIndex = closestIndex;
 
-          // Map closest timeline sequence index to our 10 HUD steps
+          // Map closest timeline sequence index to our 11 HUD steps
           let activeStep = 1;
           if (closestIndex === 0) activeStep = 1;
           else if (closestIndex === 1) activeStep = 2;
@@ -94,6 +112,7 @@ export function useStoryAnimation(
           else if (closestIndex === 8) activeStep = 8;
           else if (closestIndex === 9) activeStep = 9;
           else if (closestIndex === 10) activeStep = 10;
+          else if (closestIndex === 11) activeStep = 11;
 
           onStepActive(activeStep);
           if (onTimelineIndexActive) {
@@ -138,7 +157,57 @@ export function useStoryAnimation(
       tl.to({}, { duration: 2 });
     }
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const trigger = ScrollTrigger.getById('story-trigger');
+      if (!trigger) return;
+
+      // Ignore all keyboard input if the camera is currently in flight
+      if (isAnimating) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown' ||
+            e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+          e.preventDefault();
+        }
+        return;
+      }
+
+      let nextIndex = activeIndex;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextIndex = Math.min(activeIndex + 1, snapPoints.length - 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        nextIndex = Math.max(activeIndex - 1, 0);
+      }
+
+      if (nextIndex !== activeIndex) {
+        isAnimating = true; // Lock keyboard input immediately
+        activeIndex = nextIndex; // Update target index immediately
+        const targetProgress = snapPoints[nextIndex];
+        const targetScroll = trigger.start + targetProgress * (trigger.end - trigger.start);
+
+        allowSnap = false; // Temporarily disable ScrollTrigger snapping during programmatic scroll to prevent double-snapping fights
+
+        const scrollObj = { y: window.scrollY };
+        gsap.to(scrollObj, {
+          y: targetScroll,
+          duration: 1.0,
+          ease: 'power3.inOut',
+          overwrite: 'auto',
+          onUpdate: () => {
+            window.scrollTo(0, scrollObj.y);
+          },
+          onComplete: () => {
+            allowSnap = true; // Re-enable snapping instantly
+            isAnimating = false; // Release lock
+          }
+        });
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
+      window.removeEventListener('keydown', handleKeyDown);
       ScrollTrigger.getAll().forEach(st => st.kill());
       tl.kill();
     };

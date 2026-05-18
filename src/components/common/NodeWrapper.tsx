@@ -10,6 +10,7 @@ interface NodeWrapperProps {
 
 /**
  * A basic layout wrapper that absolutely positions a node inside the Figma dotted canvas.
+ * Restored to a super-performant GPU-accelerated static layer for maximum scrolling frame rates.
  */
 export const NodeWrapper: React.FC<NodeWrapperProps> = ({ 
   id, 

@@ -12,6 +12,7 @@ import {
 import { WriterNode } from './sections/WriterNode';
 import { DocumenterNode } from './sections/DocumenterNode';
 import { DashboardNode } from './sections/DashboardNode';
+import { ConclusionNode } from './sections/ConclusionNode';
 
 /**
  * StoryUI Component
@@ -45,6 +46,9 @@ export default function StoryUI({ timelineIndex }: StoryUIProps) {
 
       {/* CEO Boardroom Dashboard */}
       <DashboardNode />
+
+      {/* Grand Finale honors slide */}
+      <ConclusionNode />
     </>
   );
 }

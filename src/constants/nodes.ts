@@ -21,10 +21,11 @@ export const nodesData: NodeData[] = [
   { id: 'node-writer',      x: 1600, y: 7200,  sdlcPhase: 'Implementation',    sdlcStep: 8 },
   { id: 'node-documenter',  x: 4400, y: 8300,  sdlcPhase: 'Deployment',        sdlcStep: 9 },
   { id: 'node-dashboard',   x: 3000, y: 9400,  sdlcPhase: 'Maintenance & ROI', sdlcStep: 10 },
+  { id: 'node-conclusion',  x: 3000, y: 10500, sdlcPhase: 'Release & Thanks',  sdlcStep: 11 },
 ];
 
 // The actual path sequence, demonstrating the loop from Verifier -> Healer -> Verifier
-export const NODE_SEQUENCE = [0, 1, 2, 3, 4, 5, 6, 5, 7, 8, 9];
+export const NODE_SEQUENCE = [0, 1, 2, 3, 4, 5, 6, 5, 7, 8, 9, 10];
 
 export const SDLC_COLORS: Record<number, string> = {
   1: '#6366f1',  // Trigger (Intro) → indigo
@@ -37,4 +38,5 @@ export const SDLC_COLORS: Record<number, string> = {
   8: '#10b981',  // Implementation (Writer) → emerald
   9: '#f59e0b',  // Deployment (Documenter) → amber
   10: '#a855f7', // Maintenance & ROI (Dashboard) → purple
+  11: '#005cff', // Release & Thanks (Conclusion) → brand blue
 };

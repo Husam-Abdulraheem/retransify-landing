@@ -27,6 +27,7 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
     8: { label: 'Committer Writer', numberStr: '08', color: '#06b6d4' }, // cyan
     9: { label: 'Release Manager', numberStr: '09', color: '#a855f7' }, // purple
     10: { label: 'Efficiency Spectrum', numberStr: '10', color: '#a855f7' }, // purple
+    11: { label: 'Release & Thanks', numberStr: '11', color: '#005cff' }, // brand blue
   };
 
   const handleStepClick = (stepNum: number) => {
@@ -39,30 +40,21 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
       // Calculate absolute scroll position based on target progress
       const targetScroll = trigger.start + matched.progress * (trigger.end - trigger.start);
       
-      // Temporarily disable ScrollTrigger snapping during animation to prevent dual animators fighting
-      const originalSnap = trigger.vars.snap;
-      trigger.vars.snap = null;
-
       const scrollObj = { y: window.scrollY };
       gsap.to(scrollObj, {
         y: targetScroll,
-        duration: 1.5,
-        ease: 'power2.inOut',
+        duration: 1.0,
+        ease: 'power3.inOut',
         overwrite: 'auto',
         onUpdate: () => {
           window.scrollTo(0, scrollObj.y);
-        },
-        onComplete: () => {
-          // Re-enable ScrollTrigger snapping smoothly after camera arrival
-          trigger.vars.snap = originalSnap;
-          trigger.refresh();
         }
       });
     }
   };
 
-  // Determine active progress ratio of the vertical HUD line (9 steps intervals)
-  const activeRatio = activeStep > 0 ? (activeStep - 1) / 9 : 0;
+  // Determine active progress ratio of the vertical HUD line (10 steps intervals)
+  const activeRatio = activeStep > 0 ? (activeStep - 1) / 10 : 0;
 
   return (
     <div
@@ -97,7 +89,7 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
       >
         {/* Step Text Labels Column */}
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end', gap: '14px', paddingRight: '4px' }}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((num) => {
             const isActive = activeStep === num;
             const isHovered = hoveredStep === num;
             const meta = stepMetadata[num];
@@ -193,8 +185,8 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
           />
 
           {/* Indicator Dot Connectors Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', zIndex: 2, gap: '25px' }}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', zIndex: 2, gap: '20px' }}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((num) => {
               const isActive = activeStep === num;
               const isHovered = hoveredStep === num;
               const meta = stepMetadata[num];
