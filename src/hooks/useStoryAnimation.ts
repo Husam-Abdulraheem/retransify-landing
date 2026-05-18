@@ -17,11 +17,8 @@ export function useStoryAnimation(
     const canvas = canvasRef.current;
     if (!master || !canvas) return;
 
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-
-    const targetX = (i: number) => -nodesData[i].x + vw / 2;
-    const targetY = (i: number) => -nodesData[i].y + vh / 2;
+    const targetX = (i: number) => -nodesData[i].x + window.innerWidth / 2;
+    const targetY = (i: number) => -nodesData[i].y + window.innerHeight / 2;
 
     // Center on intro node initially
     gsap.set(canvas, { x: targetX(0), y: targetY(0) });
@@ -65,6 +62,7 @@ export function useStoryAnimation(
         end: '+=11000', // Extend scroll height slightly to make step 11 transition feel spacious
         scrub: 0.8,
         pin: true,
+        invalidateOnRefresh: true,
         snap: {
           snapTo: (value) => {
             if (!allowSnap) return value;
@@ -79,7 +77,7 @@ export function useStoryAnimation(
             });
             return closest;
           },
-          duration: { min: 0.3, max: 0.8 },
+          duration: { min: 0.6, max: 1.2 },
           delay: 0.25,
           ease: 'power3.out',
         },
@@ -131,8 +129,8 @@ export function useStoryAnimation(
 
       // Pan canvas to next node
       tl.to(canvas, {
-        x: targetX(currentNodeIndex),
-        y: targetY(currentNodeIndex),
+        x: () => targetX(currentNodeIndex),
+        y: () => targetY(currentNodeIndex),
         duration: 1.5,
         ease: 'power3.inOut',
         onStart: () => {
@@ -190,7 +188,7 @@ export function useStoryAnimation(
         const scrollObj = { y: window.scrollY };
         gsap.to(scrollObj, {
           y: targetScroll,
-          duration: 1.0,
+          duration: 1.6,
           ease: 'power3.inOut',
           overwrite: 'auto',
           onUpdate: () => {

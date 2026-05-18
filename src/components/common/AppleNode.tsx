@@ -102,11 +102,20 @@ export const AppleNode: React.FC<AppleNodeProps> = ({
                 fontWeight: 600,
                 padding: '8px 18px',
                 borderRadius: 40,
-                backdropFilter: 'blur(16px)',
-                background: 'rgba(0, 0, 0, 0.4)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
-                ...(t.color ? { color: t.color, borderColor: t.color } : {}),
+                backdropFilter: 'blur(12px)',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                color: 'rgba(255, 255, 255, 0.8)',
+                transition: 'all 0.3s ease',
+                ...(t.color
+                  ? {
+                      color: t.color,
+                      borderColor: `${t.color}44`,
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.25), 0 0 16px ${t.color}22, inset 0 1px 0 rgba(255, 255, 255, 0.05)`,
+                    }
+                  : {}),
               }}
             >
               {t.label}

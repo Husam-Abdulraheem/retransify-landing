@@ -6,7 +6,7 @@ import { useLanguage } from '../../hooks/useLanguage';
 export const DashboardNode: React.FC = () => {
   const { t } = useLanguage();
   const n = nodesData[9];
-  const color = SDLC_COLORS[6]; // Purple for step 10 Maintenance phase
+  const color = SDLC_COLORS[10]; // Hot pink for step 10 Maintenance phase
   
   const [isFilled, setIsFilled] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);

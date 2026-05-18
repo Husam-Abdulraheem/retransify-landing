@@ -5,6 +5,8 @@ export const translations = {
     header: {
       starGitHub: 'Star on GitHub',
     },
+    copy: 'Copy',
+    copied: 'Copied!',
     hud: {
       scrollHint: 'Scroll to navigate',
       sidebar: {
@@ -99,6 +101,8 @@ export const translations = {
     header: {
       starGitHub: "GitHub'da Yıldızla",
     },
+    copy: 'Kopyala',
+    copied: 'Kopyalandı!',
     hud: {
       scrollHint: 'Gezinmek için kaydırın',
       sidebar: {

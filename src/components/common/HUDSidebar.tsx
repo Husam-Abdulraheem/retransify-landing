@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../../hooks/useLanguage';
+import { SDLC_COLORS } from '../../constants/nodes';
 
 interface StepItem {
   step: number;
@@ -15,21 +16,22 @@ interface HUDSidebarProps {
 
 export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [isSidebarHovered, setIsSidebarHovered] = useState(false);
   const { t } = useLanguage();
 
   // Define step metadata for display
   const stepMetadata: Record<number, { label: string; numberStr: string; color: string }> = {
-    1: { label: 'Introduction', numberStr: '01', color: 'var(--blue)' },
-    2: { label: 'Lead Analyst', numberStr: '02', color: '#6366f1' }, // indigo
-    3: { label: 'System Architect', numberStr: '03', color: '#22d3ee' }, // cyan
-    4: { label: 'Code Cleaner', numberStr: '04', color: '#14b8a6' }, // teal
-    5: { label: 'Native Engineer', numberStr: '05', color: '#10b981' }, // emerald
-    6: { label: 'QA Inspector', numberStr: '06', color: '#f43f5e' }, // rose
-    7: { label: 'Self-Healing Fixer', numberStr: '07', color: '#f59e0b' }, // amber
-    8: { label: 'Committer Writer', numberStr: '08', color: '#06b6d4' }, // cyan
-    9: { label: 'Release Manager', numberStr: '09', color: '#a855f7' }, // purple
-    10: { label: 'Efficiency Spectrum', numberStr: '10', color: '#a855f7' }, // purple
-    11: { label: 'Release & Thanks', numberStr: '11', color: '#005cff' }, // brand blue
+    1: { label: 'Introduction', numberStr: '01', color: SDLC_COLORS[1] },
+    2: { label: 'Lead Analyst', numberStr: '02', color: SDLC_COLORS[2] },
+    3: { label: 'System Architect', numberStr: '03', color: SDLC_COLORS[3] },
+    4: { label: 'Code Cleaner', numberStr: '04', color: SDLC_COLORS[4] },
+    5: { label: 'Native Engineer', numberStr: '05', color: SDLC_COLORS[5] },
+    6: { label: 'QA Inspector', numberStr: '06', color: SDLC_COLORS[6] },
+    7: { label: 'Self-Healing Fixer', numberStr: '07', color: SDLC_COLORS[7] },
+    8: { label: 'Committer Writer', numberStr: '08', color: SDLC_COLORS[8] },
+    9: { label: 'Release Manager', numberStr: '09', color: SDLC_COLORS[9] },
+    10: { label: 'Efficiency Spectrum', numberStr: '10', color: SDLC_COLORS[10] },
+    11: { label: 'Release & Thanks', numberStr: '11', color: SDLC_COLORS[11] },
   };
 
   const handleStepClick = (stepNum: number) => {
@@ -45,7 +47,7 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
       const scrollObj = { y: window.scrollY };
       gsap.to(scrollObj, {
         y: targetScroll,
-        duration: 1.0,
+        duration: 1.6,
         ease: 'power3.inOut',
         overwrite: 'auto',
         onUpdate: () => {
@@ -60,9 +62,11 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
 
   return (
     <div
+      onMouseEnter={() => setIsSidebarHovered(true)}
+      onMouseLeave={() => setIsSidebarHovered(false)}
       style={{
         position: 'fixed',
-        right: '40px',
+        right: '24px',
         top: '50%',
         transform: 'translateY(-50%)',
         zIndex: 1000,
@@ -77,20 +81,35 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
       {/* Immersive Frosted Glass HUD Panel Container */}
       <div
         style={{
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: 'rgba(5, 5, 12, 0.45)',
           border: '1.2px solid rgba(255, 255, 255, 0.12)',
           borderRadius: '24px',
-          padding: '24px 20px',
+          padding: isSidebarHovered ? '24px 20px' : '24px 10px',
           backdropFilter: 'blur(24px) saturate(180%)',
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
           boxShadow: '0 30px 100px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 40px rgba(255, 255, 255, 0.01)',
           display: 'flex',
-          gap: '14px',
+          gap: isSidebarHovered ? '14px' : '0px',
           position: 'relative',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {/* Step Text Labels Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end', gap: '14px', paddingRight: '4px' }}>
+        <div 
+          style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-end', 
+            gap: '14px', 
+            width: isSidebarHovered ? '200px' : '0px',
+            opacity: isSidebarHovered ? 1 : 0,
+            pointerEvents: isSidebarHovered ? 'auto' : 'none',
+            overflow: 'hidden',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((num) => {
             const isActive = activeStep === num;
             const isHovered = hoveredStep === num;

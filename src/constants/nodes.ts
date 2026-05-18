@@ -28,15 +28,15 @@ export const nodesData: NodeData[] = [
 export const NODE_SEQUENCE = [0, 1, 2, 3, 4, 5, 6, 5, 7, 8, 9, 10];
 
 export const SDLC_COLORS: Record<number, string> = {
-  1: '#6366f1',  // Trigger (Intro) → indigo
-  2: '#6366f1',  // Requirements (Analyst) → indigo
-  3: '#22d3ee',  // System Design (Architect) → cyan
-  4: '#10b981',  // Implementation (Cleaner) → emerald
-  5: '#10b981',  // Implementation (Transformer) → emerald
-  6: '#f43f5e',  // Testing & QA (Verifier) → rose
-  7: '#f43f5e',  // Testing & QA (Healer) → rose
-  8: '#10b981',  // Implementation (Writer) → emerald
-  9: '#f59e0b',  // Deployment (Documenter) → amber
-  10: '#a855f7', // Maintenance & ROI (Dashboard) → purple
-  11: '#005cff', // Release & Thanks (Conclusion) → brand blue
+  1: '#00d2ff',  // Trigger (Intro) → vibrant electric cyan
+  2: '#818cf8',  // Requirements (Analyst) → sleek indigo
+  3: '#38bdf8',  // System Design (Architect) → sky blueprint blue
+  4: '#2dd4bf',  // Implementation (Cleaner) → mint teal
+  5: '#34d399',  // Implementation (Transformer) → rich emerald
+  6: '#fb7185',  // Testing & QA (Verifier) → validation rose red
+  7: '#f59e0b',  // Testing & QA (Healer) → recovery amber orange
+  8: '#06b6d4',  // Implementation (Writer) → deep cyan
+  9: '#a78bfa',  // Deployment (Documenter) → atmospheric purple
+  10: '#ec4899', // Maintenance & ROI (Dashboard) → analytics hot pink
+  11: '#005cff', // Release & Thanks (Conclusion) → brand electric blue
 };
