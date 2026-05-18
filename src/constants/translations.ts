@@ -26,8 +26,8 @@ export const translations = {
     node: {
       intro: {
         bash: 'retransify — bash',
-        tagline: 'Accelerating Web to Native Conversion with Smart Human-in-the-Loop Review.',
-        openSource: '🔓 OPEN SOURCE (APACHE 2.0)',
+        tagline: 'AI-Powered React Web to Native Conversion',
+        openSource: 'OPEN SOURCE (APACHE 2.0)',
         npmPublic: '📦 NPM PUBLIC',
       },
       analyst: {
@@ -122,8 +122,8 @@ export const translations = {
     node: {
       intro: {
         bash: 'retransify — terminal',
-        tagline: 'Akıllı İnsan Katılımlı İnceleme ile Web\'den Mobil Uygulamaya Dönüşümü Hızlandırın.',
-        openSource: '🔓 AÇIK KAYNAK (APACHE 2.0)',
+        tagline: 'Yapay Zeka Destekli React Web\'den Native\'e Dönüşüm',
+        openSource: 'AÇIK KAYNAK (APACHE 2.0)',
         npmPublic: '📦 NPM AÇIK',
       },
       analyst: {

@@ -24,14 +24,14 @@ export function useStoryAnimation(
       // On mobile viewports (width <= 768px), shift the camera view upward
       if (window.innerWidth <= 768) {
         if (i === 4) {
-          // Section 5 (TransformerNode) is exceptionally tall due tostacked panels
-          return centerY - 160;
+          // Section 5 (TransformerNode) is exceptionally tall due to stacked panels
+          return centerY - 40;
         }
-        return centerY - 80;
+        return centerY - 40;
       } else {
-        // On desktop, shift Section 5 upward by 140px since the SplitIDE panel is taller
+        // On desktop, shift Section 5 upward slightly by 20px to keep it perfectly balanced
         if (i === 4) {
-          return centerY - 140;
+          return centerY - 20;
         }
         // Slightly shift other interactive sections upward by 40px to center them comfortably
         if (i === 1 || i === 3 || i === 5 || i === 6 || i === 7 || i === 8 || i === 9) {
@@ -98,7 +98,7 @@ export function useStoryAnimation(
             });
             return closest;
           },
-          duration: { min: 0.6, max: 1.2 },
+          duration: { min: 0.8, max: 1.5 },
           delay: 0.25,
           ease: 'power3.out',
         },
