@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { nodesData, SDLC_COLORS } from '../../constants/nodes';
 import { NodeWrapper } from '../common/NodeWrapper';
+import { useLanguage } from '../../hooks/useLanguage';
 
 export const DashboardNode: React.FC = () => {
+  const { t } = useLanguage();
   const n = nodesData[9];
   const color = SDLC_COLORS[6]; // Purple for step 10 Maintenance phase
   
@@ -68,7 +70,7 @@ export const DashboardNode: React.FC = () => {
         <div style={{ borderBottom: '1px dashed rgba(255,255,255,0.06)', paddingBottom: '8px', width: '100%' }}>
           <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: color, fontWeight: 700, letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: color, boxShadow: `0 0 8px ${color}` }} />
-            CO-PILOT CONVERSION EFFICIENCY SPECTRUM
+            {t('node.dashboard.role')}
           </span>
         </div>
 
@@ -93,17 +95,17 @@ export const DashboardNode: React.FC = () => {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                 <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', fontFamily: 'var(--font-code)' }}>
-                  SMALL PROJECTS
+                  {t('node.dashboard.smallProjects')}
                 </span>
                 <span style={{ fontSize: '9px', color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '2px 6px', borderRadius: '4px', fontFamily: 'var(--font-code)', fontWeight: 700 }}>
-                  HIGH COMPLIANCE
+                  {t('node.dashboard.highCompliance')}
                 </span>
               </div>
               <div style={{ fontSize: '28px', fontWeight: 800, color: '#10b981', lineHeight: '1.1', marginBottom: '6px' }}>
                 95% - 100%
               </div>
               <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.4' }}>
-                Isolated layout components and custom hooks translate with zero developer adjustments.
+                {t('node.dashboard.smallDesc')}
               </div>
             </div>
 
@@ -119,6 +121,7 @@ export const DashboardNode: React.FC = () => {
                     transition: 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
                     boxShadow: '0 0 8px #10b981'
                   }} 
+                  className={isFilled ? 'neon-running-loop' : ''}
                 />
               </div>
             </div>
@@ -142,17 +145,17 @@ export const DashboardNode: React.FC = () => {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                 <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', fontFamily: 'var(--font-code)' }}>
-                  MEDIUM PROJECTS
+                  {t('node.dashboard.mediumProjects')}
                 </span>
                 <span style={{ fontSize: '9px', color: '#22d3ee', background: 'rgba(34,211,238,0.1)', padding: '2px 6px', borderRadius: '4px', fontFamily: 'var(--font-code)', fontWeight: 700 }}>
-                  LIGHT REVIEW
+                  {t('node.dashboard.lightReview')}
                 </span>
               </div>
               <div style={{ fontSize: '28px', fontWeight: 800, color: '#22d3ee', lineHeight: '1.1', marginBottom: '6px' }}>
                 85% - 90%
               </div>
               <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.4' }}>
-                State manager integrations and complex navigation modules translate with minor styling reviews.
+                {t('node.dashboard.mediumDesc')}
               </div>
             </div>
 
@@ -168,6 +171,7 @@ export const DashboardNode: React.FC = () => {
                     transition: 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
                     boxShadow: '0 0 8px #22d3ee'
                   }} 
+                  className={isFilled ? 'neon-running-loop' : ''}
                 />
               </div>
             </div>
@@ -191,17 +195,17 @@ export const DashboardNode: React.FC = () => {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                 <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', fontFamily: 'var(--font-code)' }}>
-                  LARGE PROJECTS
+                  {t('node.dashboard.largeProjects')}
                 </span>
                 <span style={{ fontSize: '9px', color: '#f59e0b', background: 'rgba(245,158,11,0.1)', padding: '2px 6px', borderRadius: '4px', fontFamily: 'var(--font-code)', fontWeight: 700 }}>
-                  CO-PILOTED CODE
+                  {t('node.dashboard.copilotedCode')}
                 </span>
               </div>
               <div style={{ fontSize: '28px', fontWeight: 800, color: '#f59e0b', lineHeight: '1.1', marginBottom: '6px' }}>
                 65% - 70%
               </div>
               <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.4' }}>
-                Platform-specific Native modules and custom asset integrations require developer assisted refactoring.
+                {t('node.dashboard.largeDesc')}
               </div>
             </div>
 
@@ -217,6 +221,7 @@ export const DashboardNode: React.FC = () => {
                     transition: 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
                     boxShadow: '0 0 8px #f59e0b'
                   }} 
+                  className={isFilled ? 'neon-running-loop' : ''}
                 />
               </div>
             </div>
@@ -243,7 +248,7 @@ export const DashboardNode: React.FC = () => {
             userSelect: 'none',
           }}
         >
-          🛡️ EMPIRICAL ANALYSIS: Assisted code translation rates based on SDLC complexity and third-party native dependencies.
+          {t('node.dashboard.empirical')}
         </div>
       </div>
     </NodeWrapper>

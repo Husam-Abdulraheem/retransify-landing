@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '../../hooks/useLanguage';
 
 type WriterState = 'idle' | 'writing' | 'written';
 
@@ -9,13 +10,14 @@ interface WriterLog {
 }
 
 export const ASTWriter: React.FC = () => {
+  const { t } = useLanguage();
   const [state, setState] = useState<WriterState>('idle');
   const [progress, setProgress] = useState<number>(0);
   const [logs, setLogs] = useState<WriterLog[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval> | undefined;
     if (state === 'writing') {
       interval = setInterval(() => {
         setProgress((prev) => {
@@ -146,10 +148,10 @@ export const ASTWriter: React.FC = () => {
         >
           <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--blue)', fontWeight: 700, letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--blue)', boxShadow: '0 0 8px var(--blue)' }} />
-            WORKSPACE_FILE_TREE
+            {t('ast.writer.tree')}
           </span>
           <span style={{ fontFamily: 'var(--font-code)', fontSize: '10px', color: state === 'written' ? '#10b981' : state === 'writing' ? 'var(--blue)' : 'rgba(255,255,255,0.3)', fontWeight: 600 }}>
-            {state === 'written' ? '✓ SYNCED (LOOP)' : state === 'writing' ? `WRITING_${progress}%` : 'STANDBY'}
+            {state === 'written' ? t('ast.writer.synced') : state === 'writing' ? `${t('ast.writer.writing')}${progress}%` : t('ast.writer.standby')}
           </span>
         </div>
 
@@ -229,7 +231,7 @@ export const ASTWriter: React.FC = () => {
                 e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 92, 255, 0.4)';
               }}
             >
-              💾 COMMIT WRITER FILES
+              {t('ast.writer.commitBtn')}
             </button>
           ) : state === 'writing' ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -254,7 +256,7 @@ export const ASTWriter: React.FC = () => {
                 />
               </div>
               <div style={{ fontFamily: 'var(--font-code)', fontSize: '9px', color: 'var(--blue)', textAlign: 'center', textTransform: 'uppercase', fontWeight: 600 }}>
-                WRITING DISK CYLINDERS... {progress}%
+                {t('ast.writer.writingCylinders')} {progress}%
               </div>
             </div>
           ) : (
@@ -284,7 +286,7 @@ export const ASTWriter: React.FC = () => {
                 e.currentTarget.style.transform = 'scale(1)';
               }}
             >
-              ↺ RESET AND RE-WRITE DEPLOYMENT
+              {t('ast.writer.resetBtn')}
             </button>
           )}
         </div>
@@ -315,7 +317,7 @@ export const ASTWriter: React.FC = () => {
             userSelect: 'none',
           }}
         >
-          AST_COMMITTER_CONSOLE_LOG
+          {t('ast.writer.consoleLog')}
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -342,7 +344,7 @@ export const ASTWriter: React.FC = () => {
               <span className="blink" style={{ fontSize: '16px', display: 'block', marginBottom: '8px', color: 'var(--blue)' }}>
                 💾
               </span>
-              Standby. Ready to compile and write native workspace...
+              {t('ast.writer.ready')}
             </div>
           )}
         </div>

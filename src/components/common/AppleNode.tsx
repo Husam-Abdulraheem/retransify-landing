@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../../hooks/useLanguage';
 
 interface TagItem {
   label: string;
@@ -24,6 +25,7 @@ export const AppleNode: React.FC<AppleNodeProps> = ({
   tags,
   children,
 }) => {
+  const { t } = useLanguage();
   return (
     <div
       style={{
@@ -68,7 +70,7 @@ export const AppleNode: React.FC<AppleNodeProps> = ({
             textShadow: '0 4px 24px rgba(0, 0, 0, 0.8)',
           }}
         >
-          {role}
+          {t(role)}
         </div>
 
         {/* Futuristic display title (Michroma) */}
@@ -85,7 +87,7 @@ export const AppleNode: React.FC<AppleNodeProps> = ({
             textShadow: '0 12px 48px rgba(0, 0, 0, 0.8)',
           }}
         >
-          {title}
+          {t(title)}
         </h2>
 
         {/* Dynamic code tags */}

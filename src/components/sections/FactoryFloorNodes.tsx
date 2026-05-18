@@ -14,8 +14,8 @@ export const CleanerNode: React.FC = () => {
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
         imgSrc="/assets/environments/env_cleaner_1778949532438.png"
-        role="CODE CLEANER"
-        title="The Code Cleaner"
+        role="node.cleaner.role"
+        title="node.cleaner.title"
         tags={[
           { label: 'normalizerNode.js' },
           { label: 'AST Sanitization' },
@@ -33,8 +33,8 @@ export const TransformerNode: React.FC = () => {
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
         imgSrc="/assets/environments/env_transformer_1778949551384.png"
-        role="NATIVE ENGINEER"
-        title="The Native Engineer"
+        role="node.transformer.role"
+        title="node.transformer.title"
         tags={[
           { label: 'executorNode.js', color: '#10b981' },
           { label: 'LangChain LLM', color: '#10b981' },
@@ -53,8 +53,8 @@ export const VerifierNode: React.FC<{ isSecondPass?: boolean }> = ({ isSecondPas
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
         imgSrc="/assets/environments/env_verifier_1778949570029.png"
-        role="QA INSPECTOR"
-        title="The QA Inspector"
+        role="node.verifier.role"
+        title="node.verifier.title"
         tags={[
           { label: 'verifierNode.js', color: '#f43f5e' },
           { label: 'AST Syntax Validation' },
@@ -73,8 +73,8 @@ export const HealerNode: React.FC = () => {
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={900}>
       <AppleNode
         imgSrc="/assets/environments/env_healer_1778949591682.png"
-        role="SELF-HEALING FIXER"
-        title="The Fixer"
+        role="node.healer.role"
+        title="node.healer.title"
         tags={[
           { label: 'healerNode.js', color: '#f59e0b' },
           { label: 'contextUpdaterNode.js' },

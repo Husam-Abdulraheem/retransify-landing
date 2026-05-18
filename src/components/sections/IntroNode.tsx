@@ -2,11 +2,13 @@ import React from 'react';
 import { nodesData, SDLC_COLORS } from '../../constants/nodes';
 import { NodeWrapper } from '../common/NodeWrapper';
 import { useTyping } from '../../hooks/useTyping';
+import { useLanguage } from '../../hooks/useLanguage';
 
 export const IntroNode: React.FC = () => {
   const color = SDLC_COLORS[1];
   const cmd = useTyping('npx retransify ./my-web-app');
   const n = nodesData[0];
+  const { t } = useLanguage();
 
   return (
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={640}>
@@ -15,7 +17,7 @@ export const IntroNode: React.FC = () => {
           <span className="terminal__dot" style={{ background: '#ff5f57' }} />
           <span className="terminal__dot" style={{ background: '#febc2e' }} />
           <span className="terminal__dot" style={{ background: '#28c840' }} />
-          <span className="terminal__title">retransify — bash</span>
+          <span className="terminal__title">{t('node.intro.bash')}</span>
         </div>
         <div className="terminal__body" style={{ padding: 32 }}>
           <div className="terminal__prompt-line" style={{ fontSize: 18 }}>
@@ -48,7 +50,7 @@ export const IntroNode: React.FC = () => {
           margin: '0 auto 24px auto',
           letterSpacing: '-0.01em'
         }}>
-          Accelerating Web to Native Conversion with Smart Human-in-the-Loop Review.
+          {t('node.intro.tagline')}
         </p>
 
         {/* Feature Conversion Pill */}
@@ -91,7 +93,7 @@ export const IntroNode: React.FC = () => {
             backdropFilter: 'blur(12px)',
             boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(52, 211, 153, 0.05)'
           }}>
-            🔓 OPEN SOURCE (APACHE 2.0)
+            {t('node.intro.openSource')}
           </span>
           <span style={{ 
             padding: '6px 12px', 
@@ -103,7 +105,7 @@ export const IntroNode: React.FC = () => {
             backdropFilter: 'blur(12px)',
             boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(96, 165, 250, 0.05)'
           }}>
-            📦 NPM PUBLIC
+            {t('node.intro.npmPublic')}
           </span>
         </div>
       </div>

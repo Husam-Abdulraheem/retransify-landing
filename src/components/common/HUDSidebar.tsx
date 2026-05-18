@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../../hooks/useLanguage';
 
 interface StepItem {
   step: number;
@@ -14,6 +15,7 @@ interface HUDSidebarProps {
 
 export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   // Define step metadata for display
   const stepMetadata: Record<number, { label: string; numberStr: string; color: string }> = {
@@ -93,6 +95,7 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
             const isActive = activeStep === num;
             const isHovered = hoveredStep === num;
             const meta = stepMetadata[num];
+            const label = t(`hud.sidebar.title${num}`);
 
             return (
               <div
@@ -149,7 +152,7 @@ export const HUDSidebar: React.FC<HUDSidebarProps> = ({ activeStep, steps }) => 
                     textShadow: isActive ? `0 0 12px ${meta.color}88` : 'none',
                   }}
                 >
-                  {meta.label}
+                  {label}
                 </span>
               </div>
             );

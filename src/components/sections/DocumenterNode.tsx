@@ -10,8 +10,8 @@ export const DocumenterNode: React.FC = () => {
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={1200}>
       <AppleNode
         imgSrc="/assets/environments/env_documenter_1778949628769.png"
-        role="RELEASE MANAGER"
-        title="The Release Manager"
+        role="node.documenter.role"
+        title="node.documenter.title"
         tags={[
           { label: 'globalAuditNode.js', color: '#f43f5e' },
           { label: 'tsc --noEmit', color: '#f43f5e' },

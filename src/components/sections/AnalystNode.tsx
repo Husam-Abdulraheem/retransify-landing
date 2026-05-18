@@ -11,8 +11,8 @@ export const AnalystNode: React.FC = () => {
     <NodeWrapper id={n.id} x={n.x} y={n.y} width={1200}>
       <AppleNode
         imgSrc="/assets/environments/env_analyst_1778949492442.png"
-        role="LEAD ANALYST"
-        title="The Lead Analyst"
+        role="node.analyst.role"
+        title="node.analyst.title"
         tags={[
           { label: 'analyzerNode.js' },
           { label: 'cacheLoaderNode.js' },

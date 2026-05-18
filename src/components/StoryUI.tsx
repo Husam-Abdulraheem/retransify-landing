@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { CanvasPaths } from './common/CanvasPaths';
 import { IntroNode } from './sections/IntroNode';
 import { AnalystNode } from './sections/AnalystNode';

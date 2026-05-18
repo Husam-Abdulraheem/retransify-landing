@@ -1,8 +1,10 @@
 import React from 'react';
 import { nodesData } from '../../constants/nodes';
 import { NodeWrapper } from '../common/NodeWrapper';
+import { useLanguage } from '../../hooks/useLanguage';
 
 export const ConclusionNode: React.FC = () => {
+  const { t } = useLanguage();
   const n = nodesData[10];
 
   return (
@@ -69,13 +71,13 @@ export const ConclusionNode: React.FC = () => {
           }}
         >
           <span style={{ fontSize: '11px', color: '#005cff', fontWeight: 800, letterSpacing: '2.5px', fontFamily: 'var(--font-code)', textTransform: 'uppercase' }}>
-            Project Academic Advisor
+            {t('node.conclusion.advisor')}
           </span>
           <span style={{ fontSize: '26px', color: '#ffffff', fontWeight: 800, letterSpacing: '-0.5px' }}>
             DR. ÖĞR. ÜYESİ Şeyma ÇAĞLAR ÖZHAN
           </span>
           <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)', fontWeight: 600, fontFamily: 'var(--font-code)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
-            Software Engineering Department
+            {t('node.conclusion.department')}
           </span>
         </div>
       </div>

@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import StoryUI from './components/StoryUI';
 import Header from './components/Header';
 import { HUDSidebar } from './components/common/HUDSidebar';
 import { CosmicParticles } from './components/common/CosmicParticles';
 import { useStoryAnimation } from './hooks/useStoryAnimation';
 import './index.css';
+
+import { useLanguage } from './hooks/useLanguage';
 
 export default function App() {
   const masterRef = useRef<HTMLDivElement>(null);
@@ -13,6 +15,8 @@ export default function App() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [registeredSteps, setRegisteredSteps] = useState<{ step: number; progress: number }[]>([]);
   const [timelineIndex, setTimelineIndex] = useState<number>(0);
+
+  const { t } = useLanguage();
 
   useStoryAnimation(masterRef, canvasRef, setActiveStep, setRegisteredSteps, setTimelineIndex);
 
@@ -44,7 +48,7 @@ export default function App() {
 
       {/* Scroll hint HUD */}
       <div className="scroll-hint">
-        <span className="scroll-hint__label">Scroll to navigate</span>
+        <span className="scroll-hint__label">{t('hud.scrollHint')}</span>
         <div className="scroll-hint__line"/>
       </div>
 

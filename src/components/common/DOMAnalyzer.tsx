@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../../hooks/useLanguage';
 
 interface ASTDiagnosticNode {
   id: string;
@@ -21,6 +22,7 @@ interface ASTDiagnosticNode {
 
 export const DOMAnalyzer: React.FC = () => {
   const [hoveredNode, setHoveredNode] = useState<ASTDiagnosticNode | null>(null);
+  const { t } = useLanguage();
 
   const compilerNodes: ASTDiagnosticNode[] = [
     {
@@ -207,7 +209,7 @@ export const DOMAnalyzer: React.FC = () => {
           }}
         >
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cyan)', boxShadow: '0 0 8px var(--cyan)' }} />
-          TS-MORPH_AST_TREE_EXPLORER
+          {t('ast.explorer.title')}
         </div>
 
         {/* Tree Nodes */}

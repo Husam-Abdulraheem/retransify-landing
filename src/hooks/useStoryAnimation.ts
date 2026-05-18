@@ -63,7 +63,7 @@ export function useStoryAnimation(
         trigger: master,
         start: 'top top',
         end: '+=11000', // Extend scroll height slightly to make step 11 transition feel spacious
-        scrub: 1.8,
+        scrub: 0.8,
         pin: true,
         snap: {
           snapTo: (value) => {
@@ -79,9 +79,9 @@ export function useStoryAnimation(
             });
             return closest;
           },
-          duration: { min: 1.0, max: 1.8 },
-          delay: 0.1,
-          ease: 'power2.out',
+          duration: { min: 0.3, max: 0.8 },
+          delay: 0.25,
+          ease: 'power3.out',
         },
         id: 'story-trigger',
         onUpdate: (self) => {
