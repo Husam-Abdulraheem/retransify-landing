@@ -2,6 +2,10 @@ export type Language = 'en' | 'tr';
 
 export const translations = {
   en: {
+    seo: {
+      title: 'Retransify — AI React Web to Native Expo Translator',
+      description: 'Autonomously transition your existing React Web codebases to Production-Ready React Native Expo Mobile Apps via intelligent AI parsing and self-healing agentic compiler loops.'
+    },
     header: {
       starGitHub: 'Star on GitHub',
     },
@@ -78,6 +82,42 @@ export const translations = {
       conclusion: {
         advisor: 'Project Academic Advisor',
         department: 'Computer Technologies and Information Systems Department',
+      },
+      techStack: {
+        title: 'Tech Stack',
+        subtitle: 'The technological powerhouse behind autonomous web-to-native conversion',
+        react: {
+          name: 'React',
+          desc: 'Source web framework containing component structures and hooks to be parsed.',
+        },
+        expo: {
+          name: 'React Native Expo',
+          desc: 'The target mobile ecosystem offering robust, high-performance native outputs.',
+        },
+        langgraph: {
+          name: 'LangGraph',
+          desc: 'Orchestrates self-correcting AI compiler state loops and agent actions.',
+        },
+        typescript: {
+          name: 'TypeScript',
+          desc: 'Provides full type-safety and robust interfaces for the entire pipeline.',
+        },
+        gemini: {
+          name: 'Google Gemini',
+          desc: 'The brain powering component reasoning, style mapping, and self-healing.',
+        },
+        vectordb: {
+          name: 'VectorDB',
+          desc: 'Leverages RAG to retrieve matching Native templates for complex Web controls.',
+        },
+        nodejs: {
+          name: 'Node.js',
+          desc: 'The runtime environment that executes AST modifications and orchestrates commands.',
+        },
+        tsmorph: {
+          name: 'AST ts-morph',
+          desc: 'Manipulates the Abstract Syntax Tree (AST) to securely refactor code patterns.',
+        }
       }
     },
     ast: {
@@ -98,6 +138,10 @@ export const translations = {
     }
   },
   tr: {
+    seo: {
+      title: "Retransify — Yapay Zeka Destekli React Web'den Native'e Dönüşüm",
+      description: 'Mevcut React Web kod tabanlarınızı akıllı yapay zeka ayrıştırma ve kendi kendini onaran aracı derleyici döngüleri aracılığıyla Üretime Hazır React Native Expo Mobil Uygulamalarına otonom olarak dönüştürün.'
+    },
     header: {
       starGitHub: "GitHub'da Yıldızla",
     },
@@ -174,6 +218,42 @@ export const translations = {
       conclusion: {
         advisor: 'Proje Akademik Danışmanı',
         department: 'Bilgisayar Teknolojileri ve Bilişim Sistemleri Bölümü',
+      },
+      techStack: {
+        title: 'Teknoloji Yığını',
+        subtitle: 'Otonom web-to-native dönüşümünün arkasındaki teknolojik güç kaynağı',
+        react: {
+          name: 'React',
+          desc: 'Ayrıştırılacak bileşen yapılarını ve web kancalarını içeren kaynak web çatısı.',
+        },
+        expo: {
+          name: 'React Native Expo',
+          desc: 'Yüksek performanslı yerel çıktılar sunan hedef mobil ekosistem.',
+        },
+        langgraph: {
+          name: 'LangGraph',
+          desc: 'Kendi kendini düzelten yapay zeka derleyici döngülerini ve ajan eylemlerini yönetir.',
+        },
+        typescript: {
+          name: 'TypeScript',
+          desc: 'Tüm boru hattı için tam tip güvenliği ve sağlam arayüzler sağlar.',
+        },
+        gemini: {
+          name: 'Google Gemini',
+          desc: 'Bileşen mantığı akıl yürütme, stil eşleme ve kendi kendini onarmayı yöneten beyin.',
+        },
+        vectordb: {
+          name: 'VectorDB',
+          desc: 'Karmaşık Web denetimleri için yerel şablonları almak üzere RAG kullanır.',
+        },
+        nodejs: {
+          name: 'Node.js',
+          desc: 'AST geçişlerini yürüten ve komutları koordine eden çalışma zamanı ortamı.',
+        },
+        tsmorph: {
+          name: 'AST ts-morph',
+          desc: 'Kod kalıplarını güvenli bir şekilde yeniden düzenlemek için Soyut Sözdizimi Ağacını (AST) yönetir.',
+        }
       }
     },
     ast: {

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import StoryUI from './components/StoryUI';
 import Header from './components/Header';
 import { HUDSidebar } from './components/common/HUDSidebar';
@@ -16,7 +16,25 @@ export default function App() {
   const [registeredSteps, setRegisteredSteps] = useState<{ step: number; progress: number }[]>([]);
   const [timelineIndex, setTimelineIndex] = useState<number>(0);
 
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+
+  // Dynamic SEO Synchronization
+  useEffect(() => {
+    document.title = t('seo.title');
+    const descEl = document.querySelector('meta[name="description"]');
+    if (descEl) {
+      descEl.setAttribute('content', t('seo.description'));
+    }
+    const ogDescEl = document.querySelector('meta[property="og:description"]');
+    if (ogDescEl) {
+      ogDescEl.setAttribute('content', t('seo.description'));
+    }
+    const twitterDescEl = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescEl) {
+      twitterDescEl.setAttribute('content', t('seo.description'));
+    }
+    document.documentElement.lang = language;
+  }, [language, t]);
 
   useStoryAnimation(masterRef, canvasRef, setActiveStep, setRegisteredSteps, setTimelineIndex);
 
